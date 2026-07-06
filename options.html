@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>IMDb Custom Links — Options</title>
+<style>
+  :root {
+    --imdb-yellow: #f5c518;
+    --dark: #1a1a1a;
+  }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f7f7;
+    color: #1a1a1a;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+  }
+  h1 {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  h1 .badge {
+    background: var(--imdb-yellow);
+    color: var(--dark);
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  p.help {
+    color: #555;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  code {
+    background: #eee;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 12px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  th, td {
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+  }
+  th {
+    background: #fafafa;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #666;
+  }
+  input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  .row-actions {
+    white-space: nowrap;
+    text-align: center;
+  }
+  button {
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    padding: 7px 14px;
+    font-size: 13px;
+  }
+  .btn-remove {
+    background: #fbeaea;
+    color: #b23b3b;
+  }
+  .btn-remove:hover {
+    background: #f6d5d5;
+  }
+  .btn-add {
+    background: #eef7ee;
+    color: #2c7a2c;
+    margin-top: 12px;
+  }
+  .btn-add:hover {
+    background: #dcf0dc;
+  }
+  .btn-save {
+    background: var(--imdb-yellow);
+    color: var(--dark);
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  .btn-save:hover {
+    background: #e0b415;
+  }
+  #status {
+    margin-left: 10px;
+    font-size: 13px;
+    color: #2c7a2c;
+  }
+</style>
+</head>
+<body>
+  <h1><span class="badge">IMDb</span> Custom Links — Options</h1>
+  <p class="help">
+    Define one or more URL templates below. Each becomes a link shown on every IMDb title page.
+    Use these placeholders anywhere in the URL — they'll be filled in automatically from the page you're viewing:
+    <br />
+    <code>{imdb_id}</code> — e.g. tt0111161 &nbsp;
+    <code>{title}</code> — movie/show title &nbsp;
+    <code>{year}</code> — release year &nbsp;
+    <code>{url}</code> — the current IMDb page URL
+  </p>
+
+  <table id="templates-table">
+    <thead>
+      <tr>
+        <th style="width: 30%">Link label</th>
+        <th>URL template</th>
+        <th style="width: 60px"></th>
+      </tr>
+    </thead>
+    <tbody id="templates-body">
+      <!-- rows injected by options.js -->
+    </tbody>
+  </table>
+
+  <button class="btn-add" id="add-row">+ Add link</button>
+  <br />
+  <button class="btn-save" id="save">Save</button>
+  <span id="status"></span>
+
+  <script src="options.js"></script>
+</body>
+</html>

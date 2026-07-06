@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "IMDb Custom Links",
+  "version": "1.0.0",
+  "description": "Adds your own custom external links to IMDb title pages, built from URL templates with placeholders like {imdb_id} and {title}.",
+  "permissions": ["storage"],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.imdb.com/title/*"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

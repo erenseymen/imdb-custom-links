@@ -29,12 +29,35 @@
     return { title, year };
   }
 
+  function getContentType() {
+    // IMDb sets an og:type meta tag: "video.movie", "video.tv_show", "video.episode", etc.
+    const og = document.querySelector('meta[property="og:type"]');
+    const ogType = og ? og.getAttribute("content") || "" : "";
+    if (/tv_show|episode/i.test(ogType)) return "series";
+    if (/movie/i.test(ogType)) return "movie";
+
+    // Fall back to JSON-LD, which IMDb also embeds on title pages.
+    const ld = document.querySelector('script[type="application/ld+json"]');
+    if (ld) {
+      try {
+        const data = JSON.parse(ld.textContent);
+        const type = (data["@type"] || "").toString();
+        if (/TVSeries|TVEpisode/i.test(type)) return "series";
+        if (/Movie/i.test(type)) return "movie";
+      } catch (e) {
+        // ignore parse errors, fall through to default
+      }
+    }
+    return "movie";
+  }
+
   function fillTemplate(template, data) {
     return template
       .replace(/\{imdb_id\}/g, encodeURIComponent(data.imdb_id))
       .replace(/\{title\}/g, encodeURIComponent(data.title))
       .replace(/\{year\}/g, encodeURIComponent(data.year))
-      .replace(/\{url\}/g, encodeURIComponent(data.url));
+      .replace(/\{url\}/g, encodeURIComponent(data.url))
+      .replace(/\{stremio_type\}/g, encodeURIComponent(data.stremio_type));
   }
 
   function buildPanel(templates, data) {
@@ -95,7 +118,8 @@
     if (!imdb_id) return;
 
     const { title, year } = getTitleAndYear();
-    const data = { imdb_id, title, year, url: window.location.href };
+    const stremio_type = getContentType();
+    const data = { imdb_id, title, year, url: window.location.href, stremio_type };
 
     chrome.storage.sync.get({ templates: DEFAULT_TEMPLATES }, (result) => {
       buildPanel(result.templates, data);

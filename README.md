@@ -20,6 +20,7 @@ A small Chrome extension that adds your own custom external links to IMDb title 
      - `{title}` → the movie/show title
      - `{year}` → release year
      - `{url}` → the current IMDb page's full URL
+     - `{stremio_type}` → auto-detected `movie` or `series`, based on the IMDb page
 3. Click **Save**.
 4. Reload any open IMDb tab (or visit a new one) to see your links.
 
@@ -29,7 +30,10 @@ A small Chrome extension that adds your own custom external links to IMDb title 
 https://example.com/movie/{imdb_id}
 https://www.google.com/search?q={title}+{year}
 https://myapp.io/lookup?imdb={imdb_id}&source={url}
+stremio:///detail/{stremio_type}/{imdb_id}/{imdb_id}
 ```
+
+The Stremio link is included by default. Clicking it opens the title directly in the Stremio desktop/mobile app (Stremio must be installed and its `stremio://` protocol handler registered — this happens automatically on install). The extension detects whether the page is a movie or a series and fills in `{stremio_type}` accordingly.
 
 ## Notes
 

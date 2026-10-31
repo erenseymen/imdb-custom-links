@@ -1,4 +1,5 @@
 const DEFAULT_TEMPLATES = [
+  { name: "Open in Stremio", template: "stremio:///detail/{stremio_type}/{imdb_id}/{imdb_id}" },
   { name: "Example: My Site", template: "https://example.com/movie/{imdb_id}" }
 ];
 
